@@ -7,13 +7,17 @@ namespace ChuyenDeLoc.Models
 {
     public  class WebDbContext
     {
-        public QLCayCanhEntities Instanse { get; }
+        private QLCayCanhEntities Instanse { get; set; }
         public WebDbContext()
         {
             if(Instanse == null)
             {
                Instanse = new QLCayCanhEntities();
             } 
+        }
+        public QLCayCanhEntities GetDBContext()
+        {
+            return Instanse;
         }
     }
 }
