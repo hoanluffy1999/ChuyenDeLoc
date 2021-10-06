@@ -308,6 +308,10 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_SideBar.cshtml" />
     <Content Include="Views\Shared\_NavBar.cshtml" />
+    <Content Include="Views\Account\Create.cshtml" />
+    <Content Include="Views\Account\GetList.cshtml" />
+    <Content Include="Views\Account\Index.cshtml" />
+    <Content Include="Views\Account\Update.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
