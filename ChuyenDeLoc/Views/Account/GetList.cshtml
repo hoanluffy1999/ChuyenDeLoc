@@ -1,10 +1,10 @@
-﻿@model List<QLCV.Models.ViewModel.EmployeeViewModel>
+﻿@model List<ChuyenDeLoc.Models.NhanVien>
 <table style="width:100%;height:100%;" id="tblDisplay" class=" table table-bordered table-hover table-striped">
     <thead>
         <tr>
             <th style="text-align:center;width:5%;">STT</th>
             <th style="width:20%">Tên</th>
-            <th style="width:20%">Tên phòng ban</th>
+            <th style="width:20%">Tên đăng nhập</th>
             <th style="width:10%">Số điện thoại</th>
             <th style="width:10%">Email</th>
             <th style="width:10%">Ngày sinh</th>
@@ -17,30 +17,20 @@
         //@foreach (var item in Model)
         {
             var item = Model[i];
-        <tr id="row_@item.Id">
+        <tr id="row_@item.Ma">
             <td style=" text-align:center;width: 5%;">
                 @(i+1)
             </td>
-            <td style="width:20%;">@item.Name</td>
-            <td style="width:20%;">@item.DepartmentName</td>
-            <td style="width:10%;">@item.Phone</td>
-            <td style="width:10%;">@item.Email</td>
-            <td style="width:10%;">@item.Birthday.GetValueOrDefault().ToString("dd/MM/yyyy") </td>
-            <td style="width:10%;">
-            @if (item.Sex == true)
-            {
-                <span>Nam</span>
-            }
-            else
-            {
-                <span>Nữ</span>
-            }
-            </td>
+            <td style="width:20%;">@item.HoTen</td>
+            <td style="width:20%;">@item.TenDangNhap</td>
+            <td style="width:10%;">@item.NgaySinh</td>
+
+         
           
             <td style="text-align:center;width:10%;">
 
-                <a href="javascript:;" class="btn-delete" onclick="deleteItem(@item.Id)"><i class="fas fa-trash-alt"></i></a>
-                <a class="btn-update" href="javascript:;" onclick="openUpdate(@item.Id)"><i class="fas fa-edit"></i></a>
+                <a href="javascript:;" class="btn-delete" onclick="deleteItem(@item.Ma)"><i class="fas fa-trash-alt"></i></a>
+                <a class="btn-update" href="javascript:;" onclick="openUpdate(@item.Ma)"><i class="fas fa-edit"></i></a>
 
 
             </td>
