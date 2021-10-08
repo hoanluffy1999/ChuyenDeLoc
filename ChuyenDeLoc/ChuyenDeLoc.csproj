@@ -313,10 +313,11 @@
     <Content Include="Views\Account\GetList.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Account\Update.cshtml" />
+    <Content Include="Views\PhanLoai\Edit.cshtml" />
+    <Content Include="Views\PhanLoai\List.cshtml" />
+    <Content Include="Views\PhanLoai\Delete.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\PhanLoai\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

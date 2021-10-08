@@ -20,28 +20,31 @@ namespace ChuyenDeLoc.Controllers
             WebDbContext webDbContext = new WebDbContext();
             db = webDbContext.GetDBContext();
         }
+        [HttpGet]
+        public ActionResult List()
+        {
+            List<PhanLoai> data = new List<PhanLoai>();
+             data = db.PhanLoais.Where(x => true).ToList();
+            return View(data);
+        }
+        [HttpPost]
         public ActionResult List(string name)
         {
             var data = db.PhanLoais.Where(x => x.Ten == name || string.IsNullOrEmpty(name)).ToList();
             return View(data);
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        public ActionResult Create(PhanLoai model)
+        public ActionResult Edit(PhanLoai model)
         {
-            model = db.PhanLoais.Add(model);
+            var data = db.PhanLoais.Where(x => x.Ma == model.Ma).FirstOrDefault();
+            if (data == null)
+            {
+                model = db.PhanLoais.Add(model);
+                db.SaveChanges();
+                return View(model);
+            }
+            db.Entry(data).CurrentValues.SetValues(model);
             db.SaveChanges();
-            return View();
-        }
-        public ActionResult Update(PhanLoai model)
-        {
-            
-            model = db.PhanLoais.Add(model);
-            db.SaveChanges();
-            return View();
+            return View(model);
         }
         public ActionResult Delete(int id)
         {
