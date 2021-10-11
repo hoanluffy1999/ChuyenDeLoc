@@ -163,6 +163,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CayController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PhanLoaiController.cs" />
     <Compile Include="Global.asax.cs">
@@ -215,6 +216,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\script.sql" />
+    <Content Include="Plugins\toastr\toastr.css" />
+    <Content Include="Plugins\toastr\toastr.min.css" />
+    <Content Include="Plugins\toastr\toastr.min.js" />
+    <Content Include="Scripts\site.js" />
     <Content Include="Content\AdminLTE\adminlte.css" />
     <Content Include="Content\AdminLTE\adminlte.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -282,6 +287,7 @@
     <Content Include="Models\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
+    <Content Include="Plugins\toastr\toastr.js.map" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -313,9 +319,16 @@
     <Content Include="Views\Account\GetList.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Account\Update.cshtml" />
-    <Content Include="Views\PhanLoai\Edit.cshtml" />
-    <Content Include="Views\PhanLoai\List.cshtml" />
-    <Content Include="Views\PhanLoai\Delete.cshtml" />
+    <Content Include="Views\PhanLoai\Create.cshtml" />
+    <Content Include="Views\PhanLoai\GetList.cshtml" />
+    <Content Include="Views\PhanLoai\Index.cshtml" />
+    <Content Include="Views\PhanLoai\Update.cshtml" />
+    <Content Include="Views\Shared\_ModalView.cshtml" />
+    <Content Include="Views\Shared\_ValidationScriptsPartial.cshtml" />
+    <Content Include="Views\Cay\Create.cshtml" />
+    <Content Include="Views\Cay\GetList.cshtml" />
+    <Content Include="Views\Cay\Index.cshtml" />
+    <Content Include="Views\Cay\Update.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

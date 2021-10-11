@@ -7,18 +7,17 @@ using System.Web.Mvc;
 
 namespace ChuyenDeLoc.Controllers
 {
-    public class PhanLoaiController : Controller
+    public class CayController : Controller
     {
-     
         private readonly QLCayCanhEntities db;
-        public PhanLoaiController()
+        public CayController()
         {
             WebDbContext webDbContext = new WebDbContext();
             db = webDbContext.GetDBContext();
         }
         public ActionResult Index()
         {
-            ViewBag.title = "Danh sách nhóm cây";
+            ViewBag.title = "Danh sách cây ";
             return View();
         }
         [HttpGet]
@@ -71,7 +70,7 @@ namespace ChuyenDeLoc.Controllers
                 return Json(new { result = false });
             }
             db.PhanLoais.Remove(entity);
-           
+
             db.SaveChanges();
             return Json(new { result = true }); ;
         }
