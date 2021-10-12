@@ -6,7 +6,7 @@
                 <label class="col-sm-3" required>Nhóm cây </label>
                 <div class="col-sm-8">
                     <select id="cbPhanLoai" name="phanloai">
-                        @foreach (var item in (List<ChuyenDeLoc.Models.PhanLoai>)ViewData["PhongBan"])
+                        @foreach (var item in (List<ChuyenDeLoc.Models.PhanLoai>)ViewData["PhanLoai"])
                         {
                             <option value="@item.Ma">
                                 @item.Ten
@@ -47,16 +47,24 @@
             </div>
         </div>
     </div>
+    <div class="form-group">
+        <div class="row">
+             <label class="col-sm-3">Ảnh mô tả</label>
+            <div class="col-sm-8">
+                <input type="file" onchange="encodeImageFileAsURL(this)" />
+            </div>
+        </div>
+    </div>
 </div>
 <script>
     var frmUpdate = $('#frmUpdate');
     $(document).ready(function () {
-        addRequired(frmUpdate);
+      //  addRequired(frmUpdate);
         frmUpdate.find('lbStatus').on('click', function () {
             frmUpdate.find('ckbStatus').prop('checked') = !frmUpdate.find('ckbStatus').prop('checked')
         })
     });
-
+    var img = "";
     $('#modal-form').find('#btnSave').off("click").on('click', function (e) {
         e.preventDefault();
         create();
@@ -74,7 +82,8 @@
                 MoTa: frmUpdate.find('#txtDescription').val() ,        
                 ChieuCao: frmUpdate.find('#txtChieuCao').val(),
                 ChieuRong: frmUpdate.find('#txtChieuRong').val(),
-                MaPhanLoai: frmUpdate.fin("#cbPhanLoai").val()
+                MaPhanLoai: frmUpdate.find("#cbPhanLoai").val(),
+                HinhAnh: img
             }
             , success: function (response) {
                 
@@ -105,8 +114,17 @@
                 }
             });
         }
+       
     }
-
+    function encodeImageFileAsURL(element) {
+        var file = element.files[0];
+        var reader = new FileReader();
+        reader.onloadend = function () {
+            img = reader.result;
+            console.log('RESULT', reader.result)
+        }
+        reader.readAsDataURL(file);
+    }
 </script>
 
 

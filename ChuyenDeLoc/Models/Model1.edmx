@@ -273,7 +273,7 @@
           <Property Name="MoTa" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="SoLuong" Type="Int32" />
           <Property Name="MaPhanLoai" Type="Int32" Nullable="false" />
-          <Property Name="HinhAnh" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="HinhAnh" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ChieuCao" Type="Int32" />
           <Property Name="ChieuRong" Type="Int32" />
           <NavigationProperty Name="ChiTiepPhieuNhaps" Relationship="Self.FK_ChiTiepPhieuNhap_SanPham" FromRole="SanPham" ToRole="ChiTiepPhieuNhap" />

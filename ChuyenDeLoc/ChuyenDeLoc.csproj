@@ -330,10 +330,12 @@
     <Content Include="Views\Cay\GetList.cshtml" />
     <Content Include="Views\Cay\Index.cshtml" />
     <Content Include="Views\Cay\Update.cshtml" />
+    <Content Include="Views\NhaCungCap\Update.cshtml" />
+    <Content Include="Views\NhaCungCap\Create.cshtml" />
+    <Content Include="Views\NhaCungCap\GetList.cshtml" />
+    <Content Include="Views\NhaCungCap\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\NhaCungCap\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

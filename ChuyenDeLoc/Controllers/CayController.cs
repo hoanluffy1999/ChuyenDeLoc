@@ -23,33 +23,37 @@ namespace ChuyenDeLoc.Controllers
         [HttpGet]
         public ActionResult GetList(string name)
         {
-            var data = db.PhanLoais.Where(x => x.Ten.ToLower().Contains(name.ToLower()) || string.IsNullOrEmpty(name)).ToList();
+            var data = db.SanPhams.Where(x => x.Ten.ToLower().Contains(name.ToLower()) || string.IsNullOrEmpty(name)).ToList();
             return PartialView(data);
         }
         [HttpGet]
         public ActionResult Create()
         {
+            ViewData["PhanLoai"] = db.PhanLoais.Where(x => true).ToList();
             return PartialView();
         }
         [HttpPost]
-        public ActionResult Create(PhanLoai inputModel)
+        public ActionResult Create(SanPham inputModel)
         {
-            db.PhanLoais.Add(inputModel);
+            inputModel.SoLuong = 0;
+            inputModel.PhanLoai = db.PhanLoais.Where(x => x.Ma == inputModel.MaPhanLoai).FirstOrDefault();
+            db.SanPhams.Add(inputModel);
             db.SaveChanges();
             return Json(new { result = true }); ;
         }
         [HttpGet]
-        public ActionResult Update(int Ma)
+        public ActionResult Update(int id)
         {
-            var entity = db.PhanLoais.Find(Ma);
+            ViewData["PhanLoai"] = db.PhanLoais.Where(x => true).ToList();
+            var entity = db.SanPhams.Find(id);
             return PartialView(entity);
         }
         [HttpPost]
-        public ActionResult Update(PhanLoai inputModel)
+        public ActionResult Update(SanPham inputModel)
         {
 
 
-            var entity = db.PhanLoais.Find(inputModel.Ma);
+            var entity = db.SanPhams.Find(inputModel.Ma);
             if (entity == null)
             {
                 return Json(new { result = false });
@@ -63,13 +67,13 @@ namespace ChuyenDeLoc.Controllers
         {
 
 
-            var entity = db.PhanLoais.Find(Ma);
+            var entity = db.SanPhams.Find(Ma);
 
             if (entity == null)
             {
                 return Json(new { result = false });
             }
-            db.PhanLoais.Remove(entity);
+            db.SanPhams.Remove(entity);
 
             db.SaveChanges();
             return Json(new { result = true }); ;

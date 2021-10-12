@@ -9,7 +9,7 @@
                 <label class="col-sm-3" required>Nhóm cây </label>
                 <div class="col-sm-8">
                     <select id="cbPhanLoai" name="phanloai">
-                        @foreach (var item in (List<ChuyenDeLoc.Models.PhanLoai>)ViewData["PhongBan"])
+                        @foreach (var item in (List<ChuyenDeLoc.Models.PhanLoai>)ViewData["PhanLoai"])
                         {
                             <option value="@item.Ma">
                                 @item.Ten
@@ -19,7 +19,7 @@
                 </div>
             </div>
         </div>
-        <input type="hidden"  value="@Model.Ma" id="txtId"/>
+        <input type="hidden" value="@Model.Ma" id="txtId" />
         <div class="row">
             <label class="col-sm-3" required>Tên cây </label>
             <div class="col-sm-8">
@@ -48,6 +48,16 @@
             <label class="col-sm-3">Chiều rộng</label>
             <div class="col-sm-8">
                 <input type="text" class="form-control" id="txtChieuRong" value="@Model.ChieuRong" placeholder="Chiều rộng">
+               
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <label class="col-sm-3">Ảnh mô tả</label>
+            <div class="col-sm-8">
+                <input type="file" onchange="encodeImageFileAsURL(this)" />
+                <img style="height:70px;width:100px" src="@Model.HinhAnh" />
             </div>
         </div>
     </div>
@@ -56,9 +66,11 @@
 <script>
     var frmUpdate = $('#frmUpdate');
     $(document).ready(function () {
-        addRequired(frmUpdate);
+       // addRequired(frmUpdate);
         setStatus();
     });
+    var img = @(Model.HinhAnh);
+    console.log(img)
     $(document).on('keydown', 'input[pattern]', function (e) {
         var input = $(this);
         var oldVal = input.val();
@@ -125,5 +137,14 @@
                 hideLoading()
             }
         });
+    }
+    function encodeImageFileAsURL(element) {
+        var file = element.files[0];
+        var reader = new FileReader();
+        reader.onloadend = function () {
+            img = reader.result;
+            
+        }
+        reader.readAsDataURL(file);
     }
 </script>
