@@ -1,29 +1,58 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@model  ChuyenDeLoc.Models.PhanLoai
+@model  ChuyenDeLoc.Models.SanPham
 <div id="frmUpdate" class="form-horizontal">
-    <input type="hidden" value="@Model.Ma" id="hdId" />
     <div class="form-group">
-        <div class="row">
-            <label class="col-sm-3" required>Tên đơn vị</label>
-            <div class="col-sm-8">
-                <input type="text" value="@Model.Ten" required class="form-control" id="txtName" placeholder="Tên đơn vị">
+        <div class="form-group">
+            <div class="row">
+                <label class="col-sm-3" required>Nhóm cây </label>
+                <div class="col-sm-8">
+                    <select id="cbPhanLoai" name="phanloai">
+                        @foreach (var item in (List<ChuyenDeLoc.Models.PhanLoai>)ViewData["PhongBan"])
+                        {
+                            <option value="@item.Ma">
+                                @item.Ten
+                            </option>
+                        }
+                    </select>
+                </div>
             </div>
         </div>
-
+        <input type="hidden"  value="@Model.Ma" id="txtId"/>
+        <div class="row">
+            <label class="col-sm-3" required>Tên cây </label>
+            <div class="col-sm-8">
+                <input type="text" required class="form-control" id="txtName" value="@Model.Ten" placeholder="Tên cây">
+            </div>
+        </div>
     </div>
     <div class="form-group">
         <div class="row">
             <label class="col-sm-3">Mô tả</label>
             <div class="col-sm-8">
-                <input type="text" value="@Model.MoTa" class="form-control" id="txtDescription" placeholder="Mô tả">
+                <input type="text" class="form-control" id="txtDescription" placeholder="Mô tả" value="@Model.MoTa">
             </div>
         </div>
     </div>
-   
-   
+    <div class="form-group">
+        <div class="row">
+            <label class="col-sm-3">Chiều cao</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="txtChieuCao" value="@Model.ChieuCao" placeholder="Chiều cao">
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <label class="col-sm-3">Chiều rộng</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="txtChieuRong" value="@Model.ChieuRong" placeholder="Chiều rộng">
+            </div>
+        </div>
+    </div>
 </div>
+   
 <script>
     var frmUpdate = $('#frmUpdate');
     $(document).ready(function () {
@@ -60,9 +89,12 @@
             url: urlDomain + "/update",
             method: "POST",
             data: {
-                Ma: frmUpdate.find('#hdId').val(),
                 Ten: frmUpdate.find('#txtName').val(),
-                MoTa: frmUpdate.find('#txtDescription').val()
+                MoTa: frmUpdate.find('#txtDescription').val(),
+                ChieuCao: frmUpdate.find('#txtChieuCao').val(),
+                ChieuRong: frmUpdate.find('#txtChieuRong').val(),
+                MaPhanLoai: frmUpdate.find("#cbPhanLoai").val(),
+                Ma: frmUpdate.find("txtId").val()
             }
             , success: function (response) {
                 hideLoading()
