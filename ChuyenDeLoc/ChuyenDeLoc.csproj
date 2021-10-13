@@ -162,11 +162,12 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\NhanVienController.cs" />
     <Compile Include="Controllers\CayController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NhaCungCapController.cs" />
     <Compile Include="Controllers\PhanLoaiController.cs" />
+    <Compile Include="Controllers\PhieuNhapController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -316,10 +317,10 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_SideBar.cshtml" />
     <Content Include="Views\Shared\_NavBar.cshtml" />
-    <Content Include="Views\Account\Create.cshtml" />
-    <Content Include="Views\Account\GetList.cshtml" />
-    <Content Include="Views\Account\Index.cshtml" />
-    <Content Include="Views\Account\Update.cshtml" />
+    <Content Include="Views\NhanVien\Create.cshtml" />
+    <Content Include="Views\NhanVien\GetList.cshtml" />
+    <Content Include="Views\NhanVien\Index.cshtml" />
+    <Content Include="Views\NhanVien\Update.cshtml" />
     <Content Include="Views\PhanLoai\Create.cshtml" />
     <Content Include="Views\PhanLoai\GetList.cshtml" />
     <Content Include="Views\PhanLoai\Index.cshtml" />
@@ -334,6 +335,10 @@
     <Content Include="Views\NhaCungCap\Create.cshtml" />
     <Content Include="Views\NhaCungCap\GetList.cshtml" />
     <Content Include="Views\NhaCungCap\Index.cshtml" />
+    <Content Include="Views\PhieuNhap\Update.cshtml" />
+    <Content Include="Views\PhieuNhap\Create.cshtml" />
+    <Content Include="Views\PhieuNhap\GetList.cshtml" />
+    <Content Include="Views\PhieuNhap\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

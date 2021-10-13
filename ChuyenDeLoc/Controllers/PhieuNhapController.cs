@@ -7,51 +7,53 @@ using System.Web.Mvc;
 
 namespace ChuyenDeLoc.Controllers
 {
-    public class NhaCungCapController : Controller
+    public class PhieuNhapController : Controller
     {
         private readonly QLCayCanhEntities db;
-        public NhaCungCapController()
+        public PhieuNhapController()
         {
             WebDbContext webDbContext = new WebDbContext();
             db = webDbContext.GetDBContext();
         }
         public ActionResult Index()
         {
-            ViewBag.title = "Danh sách nhà cung cấp";
+            ViewBag.title = "Danh sách nhà phiếu nhập";
             return View();
         }
         [HttpGet]
         public ActionResult GetList(string name)
         {
-            var data = db.NhaCungCaps.Where(x => x.Ten.ToLower().Contains(name.ToLower()) || string.IsNullOrEmpty(name)).ToList();
+            var data = db.PhieuNhaps.Where(x =>/* x.Ma.ToLower().Contains(name.ToLower()) ||*//* string.IsNullOrEmpty(name)*/ true).ToList();
             return PartialView(data);
         }
         [HttpGet]
         public ActionResult Create()
         {
-            ViewData["NhanVien"] = db.PhanLoais.Where(x => true).ToList();
-            ViewData["NhaCungCap"] = db.PhanLoais.Where(x => true).ToList();
+            ViewData["NhanVien"] = db.NhanViens.Where(x => true).ToList();
+            ViewData["NhaCungCap"] = db.NhaCungCaps.Where(x => true).ToList();
             return PartialView();
         }
         [HttpPost]
-        public ActionResult Create(NhaCungCap inputModel)
+        public ActionResult Create(PhieuNhap inputModel)
         {
-            db.NhaCungCaps.Add(inputModel);
+            db.PhieuNhaps.Add(inputModel);
             db.SaveChanges();
             return Json(new { result = true }); ;
         }
         [HttpGet]
         public ActionResult Update(int Ma)
         {
-            var entity = db.NhaCungCaps.Find(Ma);
+            ViewData["NhanVien"] = db.NhanViens.Where(x => true).ToList();
+            ViewData["NhaCungCap"] = db.NhaCungCaps.Where(x => true).ToList();
+            var entity = db.PhieuNhaps.Find(Ma);
             return PartialView(entity);
         }
         [HttpPost]
-        public ActionResult Update(NhaCungCap inputModel)
+        public ActionResult Update(PhieuNhap inputModel)
         {
 
 
-            var entity = db.NhaCungCaps.Find(inputModel.Ma);
+            var entity = db.PhieuNhaps.Find(inputModel.Ma);
             if (entity == null)
             {
                 return Json(new { result = false });
@@ -65,13 +67,13 @@ namespace ChuyenDeLoc.Controllers
         {
 
 
-            var entity = db.NhaCungCaps.Find(Ma);
+            var entity = db.PhieuNhaps.Find(Ma);
 
             if (entity == null)
             {
                 return Json(new { result = false });
             }
-            db.NhaCungCaps.Remove(entity);
+            db.PhieuNhaps.Remove(entity);
 
             db.SaveChanges();
             return Json(new { result = true }); ;

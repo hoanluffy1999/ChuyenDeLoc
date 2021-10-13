@@ -48,7 +48,7 @@
 </div>
 <script>
     var frmFilter = $('#frmFilter');
-    var urlDomain = "/Employee";
+    var urlDomain = "/PhieuNhap";
     var take = 10;
     var skip = 0;
     $(document).ready(function () {
@@ -66,7 +66,7 @@
         });
     }
     function getData(name, status) {
-        showLoading()
+      
         $.ajax({
             url: urlDomain + "/getlist?name=" + $("#txtName").val(),
             method: "GET",
@@ -77,7 +77,7 @@
             }
             , success: function (response) {
                 $('#dtTable').html(response);
-                hideLoading()
+               
             }
         })
     }
@@ -90,7 +90,7 @@
             url: urlDomain + "/create",
             method: "Get",
             success: function (response) {
-                showContentModal(response, "Tạo mới đơn vị")
+                showContentModal(response, "Tạo mới nhà cung cấp")
             }
         });
     }
