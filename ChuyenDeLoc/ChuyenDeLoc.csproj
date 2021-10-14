@@ -339,6 +339,8 @@
     <Content Include="Views\PhieuNhap\Create.cshtml" />
     <Content Include="Views\PhieuNhap\GetList.cshtml" />
     <Content Include="Views\PhieuNhap\Index.cshtml" />
+    <Content Include="Views\PhieuNhap\ChiTiet.cshtml" />
+    <Content Include="Views\PhieuNhap\CreateChiTiet.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

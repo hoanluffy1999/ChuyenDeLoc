@@ -36,9 +36,15 @@ namespace ChuyenDeLoc.Controllers
         [HttpPost]
         public ActionResult Create(PhieuNhap inputModel)
         {
-            db.PhieuNhaps.Add(inputModel);
+
+            var nhanvien = db.NhanViens.Where(x => x.Ma == inputModel.MaNV).FirstOrDefault();
+            var nhaCungCap = db.NhaCungCaps.Where(x => x.Ma == inputModel.MaNCC).FirstOrDefault();
+            inputModel.NhanVien = nhanvien;
+            inputModel.NhaCungCap = nhaCungCap;
+
+            var data = db.PhieuNhaps.Add(inputModel);
             db.SaveChanges();
-            return Json(new { result = true }); ;
+            return Json(new { data = data, result = true }); ;
         }
         [HttpGet]
         public ActionResult Update(int Ma)
@@ -58,6 +64,10 @@ namespace ChuyenDeLoc.Controllers
             {
                 return Json(new { result = false });
             }
+            var nhanvien = db.NhanViens.Where(x => x.Ma == inputModel.MaNV).FirstOrDefault();
+            var nhaCungCap = db.NhaCungCaps.Where(x => x.Ma == inputModel.MaNCC).FirstOrDefault();
+            inputModel.NhanVien = nhanvien;
+            inputModel.NhaCungCap = nhaCungCap;
             db.Entry(entity).CurrentValues.SetValues(inputModel);
             db.SaveChanges();
             return Json(new { result = true });
@@ -77,6 +87,58 @@ namespace ChuyenDeLoc.Controllers
 
             db.SaveChanges();
             return Json(new { result = true }); ;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ma"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult ChiTiet(int ma)
+        {
+            var data = db.PhieuNhaps.Where(x => x.Ma == ma).FirstOrDefault();
+            return View(data);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult CreateChiTiet()
+        {
+            ViewData["SanPham"] = db.SanPhams.Where(x => true).ToList();
+
+            return PartialView();
+        }
+        [HttpPost]
+        public ActionResult CreateChiaTiet(ChiTiepPhieuNhap inputModel)
+        {
+            var data = db.ChiTiepPhieuNhaps.Add(inputModel);
+            db.SaveChanges();
+            return Json(new { data = data, result = true }); ;
+        }
+        [HttpGet]
+        public ActionResult UpdateChiTiet(int Ma)
+        {
+            ViewData["SanPham"] = db.SanPhams.Where(x => true).ToList();
+
+            var entity = db.ChiTiepPhieuNhaps.Find(Ma);
+            return PartialView(entity);
+        }
+        [HttpPost]
+        public ActionResult UpdateChiTiet(ChiTiepPhieuNhap inputModel)
+        {
+
+
+            var entity = db.ChiTiepPhieuNhaps.Find(inputModel.Ma);
+            if (entity == null)
+            {
+                return Json(new { result = false });
+            }
+            db.Entry(entity).CurrentValues.SetValues(inputModel);
+            db.SaveChanges();
+            return Json(new { result = true });
         }
     }
 }
