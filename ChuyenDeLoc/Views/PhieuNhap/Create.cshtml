@@ -53,18 +53,18 @@
             url: urlDomain + "/create",
             method: "POST",
             data: {
-                Ten: frmUpdate.find('#txtName').val(),
-                DiaChi: frmUpdate.find('#txtAddress').val(),
-                Email: frmUpdate.find('#txtEmail').val(),
-                Email: frmUpdate.find('#txtSdt').val(),
+                MaNV: frmUpdate.find('#cbNCC').val(),
+                MaNCC: frmUpdate.find('#cbNhanVien').val(),
+              
             }
             , success: function (response) {
                 
                 if (response.result) {
                     // datasource = response.data
+                    console.log(response);
                     showAlert("Thêm mới thành công", 2)
-                    getData();
-                    window.location.href = urlDomain + "/chitiet?" + response.data.Ma;
+                   // getData();
+                    window.location.href = urlDomain + "/chitiet?ma=" + response.data.Ma;
 
                 } else {
                     showAlert(response.message)

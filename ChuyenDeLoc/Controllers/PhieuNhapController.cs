@@ -15,6 +15,7 @@ namespace ChuyenDeLoc.Controllers
             WebDbContext webDbContext = new WebDbContext();
             db = webDbContext.GetDBContext();
         }
+        [CustomAuthen]
         public ActionResult Index()
         {
             ViewBag.title = "Danh sách nhà phiếu nhập";
@@ -41,10 +42,16 @@ namespace ChuyenDeLoc.Controllers
             var nhaCungCap = db.NhaCungCaps.Where(x => x.Ma == inputModel.MaNCC).FirstOrDefault();
             inputModel.NhanVien = nhanvien;
             inputModel.NhaCungCap = nhaCungCap;
-
+            inputModel.NgayNhap = DateTime.Now;
             var data = db.PhieuNhaps.Add(inputModel);
             db.SaveChanges();
-            return Json(new { data = data, result = true }); ;
+            PhieuNhapViewModel viewModel = new PhieuNhapViewModel()
+            {
+                Ma = data.Ma,
+                MaNCC = data.MaNCC,
+                MaNV = data.MaNV
+            };
+            return Json(new { data = viewModel, result = true }); ;
         }
         [HttpGet]
         public ActionResult Update(int Ma)
@@ -112,7 +119,7 @@ namespace ChuyenDeLoc.Controllers
             return PartialView();
         }
         [HttpPost]
-        public ActionResult CreateChiaTiet(ChiTiepPhieuNhap inputModel)
+        public ActionResult CreateChiTiet(ChiTiepPhieuNhap inputModel)
         {
             var data = db.ChiTiepPhieuNhaps.Add(inputModel);
             db.SaveChanges();
@@ -122,9 +129,9 @@ namespace ChuyenDeLoc.Controllers
         public ActionResult UpdateChiTiet(int Ma)
         {
             ViewData["SanPham"] = db.SanPhams.Where(x => true).ToList();
-
-            var entity = db.ChiTiepPhieuNhaps.Find(Ma);
-            return PartialView(entity);
+            var data = db.PhieuNhaps.Where(x => x.Ma == Ma).FirstOrDefault();
+            
+            return PartialView(data);
         }
         [HttpPost]
         public ActionResult UpdateChiTiet(ChiTiepPhieuNhap inputModel)
@@ -139,6 +146,28 @@ namespace ChuyenDeLoc.Controllers
             db.Entry(entity).CurrentValues.SetValues(inputModel);
             db.SaveChanges();
             return Json(new { result = true });
+        }
+        [HttpGet]
+        public ActionResult GetListChiTiet(int maPhieu)
+        {
+            var data = db.ChiTiepPhieuNhaps.Where(x =>x.MaPhieuNhap == maPhieu).ToList();
+            return PartialView("ListChiTiet", data);
+        }
+        [HttpPost]
+        public ActionResult DeleteChiTiet(int Ma)
+        {
+
+
+            var entity = db.ChiTiepPhieuNhaps.Find(Ma);
+
+            if (entity == null)
+            {
+                return Json(new { result = false });
+            }
+            db.ChiTiepPhieuNhaps.Remove(entity);
+
+            db.SaveChanges();
+            return Json(new { result = true }); ;
         }
     }
 }

@@ -1,32 +1,36 @@
-﻿@model List<ChuyenDeLoc.Models.PhieuNhap>
+﻿@model List<ChuyenDeLoc.Models.ChiTiepPhieuNhap>
 <table style="width:100%;height:100%;" id="tblDisplay" class=" table table-bordered table-hover table-striped">
     <thead>
         <tr>
             <th style="text-align:center;width:5%;">STT</th>
-            <th style="width:10%">Nhà cung cấp </th>
-            <th style="width:10%">Người nhập</th>
-            <th style="width:10%">Tổng tiền </th>
-            
+            <th style="width:10%">Mã cây </th>
+            <th style="width:10%">Tên cây </th>
+            <th style="width:10%">Số lượng</th>
+            <th style="width:10%">Giá nhập </th>
+            <th style="width:10%">Thành tiền </th>
             <th style="text-align:center;width:10%">Thao tác</th>
         </tr>
     </thead>
     <tbody>
+        @{ long tongtien = 0;}
         @for (int i = 0; i < Model.Count; i++)
         //@foreach (var item in Model)
         {
             var item = Model[i];
         <tr id="row_@item.Ma">
             <td style=" text-align:center;width: 5%;">
-                @(i+1)
-             
+                @(i + 1)
             </td>
-            <td style="width:20%;">@item.NhaCungCap.Ten</td>
-            <td style="width:40%;">@item.NhanVien.TenDangNhap</td>
-            <td style="width:20%;">@item.ChiTiepPhieuNhaps.Sum(x=>x.GiaNhap) VNĐ</td>
-            
+            @{long thanhTien = item.SoLuong.Value * item.GiaNhap.Value;
+                tongtien += thanhTien;
+                }
+            <td style="width:10%;">@item.MaSP</td>
+            <td style="width:10%;">@item.SanPham.Ten</td>
+            <td style="width:10%;">@item.SoLuong</td>
+            <td style="width:10%;">@item.GiaNhap</td>
+            <td style="width:10%;">@thanhTien VNĐ</td>
 
             <td style="text-align:center;width:10%;">
-
                 <a href="javascript:;" class="btn-delete" onclick="deleteItem(@item.Ma)"><i class="fas fa-trash-alt"></i></a>
                 <a class="btn-update" href="javascript:;" onclick="openUpdate(@item.Ma)"><i class="fas fa-edit"></i></a>
 
@@ -36,6 +40,7 @@
         }
     </tbody>
 </table>
+<div>Tổng tiền : @tongtien VNĐ</div>
 <script>
     var tblDisplay = $('#tblDisplay');
     //$(document).ready(function () {
@@ -115,17 +120,32 @@
     }
     function openUpdate(id) {
         $.ajax({
-            url: urlDomain + "/chitiet?ma=" + id,
+            url: urlDomain + "/UpdateChiTiet?ma=" + id,
             method: "Get",
             success: function (response) {
-                showContentModal(response, "Cập nhật")
+                showContentModal(response, "Cập nhập thông tin")
             }
         });
+        $(".checkStatus").off("click").on('click', function (e) {
+            var id = $(this).val();
+            var status = $(this).prop('checked') ? 1 : 0;
+            $.ajax({
+                url: urlDomain + '/delete-or-restore',
+                method: "POST",
+                data: {
+                    Id: id,
+                    Status: status
+                }
+                , success: function (response) {
+
+                }
+            })
+        })
     }
     function deleteItem(id) {
 
             $.ajax({
-            url: urlDomain + '/delete',
+            url: urlDomain + '/deleteChiTiet',
             method: "POST",
             data: {
                 Ma: id,

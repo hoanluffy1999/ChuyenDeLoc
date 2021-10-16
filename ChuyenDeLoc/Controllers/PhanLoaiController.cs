@@ -16,6 +16,7 @@ namespace ChuyenDeLoc.Controllers
             WebDbContext webDbContext = new WebDbContext();
             db = webDbContext.GetDBContext();
         }
+        [CustomAuthen]
         public ActionResult Index()
         {
             ViewBag.title = "Danh sách nhóm cây";
