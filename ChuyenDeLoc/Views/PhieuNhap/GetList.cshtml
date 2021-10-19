@@ -114,13 +114,14 @@
         })
     }
     function openUpdate(id) {
-        $.ajax({
-            url: urlDomain + "/chitiet?ma=" + id,
-            method: "Get",
-            success: function (response) {
-                showContentModal(response, "Cập nhật")
-            }
-        });
+        //$.ajax({
+        //    url: urlDomain + "/chitiet?ma=" + id,
+        //    method: "Get",
+        //    success: function (response) {
+        //        showContentModal(response, "Cập nhật")
+        //    }
+        //});
+        window.location.href = "/phieunhap?ma=" + id;
     }
     function deleteItem(id) {
 
