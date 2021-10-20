@@ -43,7 +43,7 @@ namespace ChuyenDeLoc.Controllers
         [HttpGet]
         public ActionResult Update(int Ma)
         {
-            var entity = db.PhanLoais.Find(Ma);
+            var entity = db.PhanLoais.Where(x=>x.Ma ==Ma).FirstOrDefault();
             return PartialView(entity);
         }
         [HttpPost]

@@ -58,15 +58,21 @@ namespace ChuyenDeLoc.Controllers
         {
             ViewData["NhanVien"] = db.NhanViens.Where(x => true).ToList();
             ViewData["NhaCungCap"] = db.NhaCungCaps.Where(x => true).ToList();
-            var entity = db.PhieuNhaps.Find(Ma);
-            return PartialView(entity);
+            var data = db.PhieuNhaps.Where(x=>x.Ma == Ma).FirstOrDefault();
+            PhieuNhapViewModel viewModel = new PhieuNhapViewModel()
+            {
+                Ma = data.Ma,
+                MaNCC = data.MaNCC,
+                MaNV = data.MaNV
+            };
+            return PartialView(viewModel);
         }
         [HttpPost]
         public ActionResult Update(PhieuNhap inputModel)
         {
 
 
-            var entity = db.PhieuNhaps.Find(inputModel.Ma);
+            var entity = db.PhieuNhaps.Where(x => x.Ma == inputModel.Ma).FirstOrDefault();
             if (entity == null)
             {
                 return Json(new { result = false });

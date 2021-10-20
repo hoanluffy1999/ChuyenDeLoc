@@ -172,7 +172,7 @@ function showLoading() {
         animation: 'doubleBounce'
     });
 }
-function hideLoading() {
+function {
     $('body').loadingModal('destroy');
 
 }
