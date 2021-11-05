@@ -172,10 +172,7 @@ function showLoading() {
         animation: 'doubleBounce'
     });
 }
-function {
-    $('body').loadingModal('destroy');
 
-}
 function stringToSlug(str) {
     // remove accents
     var from = "àáãảạăằắẳẵặâầấẩẫậèéẻẽẹêềếểễệđùúủũụưừứửữựòóỏõọôồốổỗộơờớởỡợìíỉĩịäëïîöüûñçýỳỹỵỷ",
