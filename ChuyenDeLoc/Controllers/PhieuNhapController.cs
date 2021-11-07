@@ -37,10 +37,9 @@ namespace ChuyenDeLoc.Controllers
         [HttpPost]
         public ActionResult Create(PhieuNhap inputModel)
         {
-
-            var nhanvien = db.NhanViens.Where(x => x.Ma == inputModel.MaNV).FirstOrDefault();
+            var nhanvien = (NhanVien)Session["Account"];
             var nhaCungCap = db.NhaCungCaps.Where(x => x.Ma == inputModel.MaNCC).FirstOrDefault();
-            inputModel.NhanVien = nhanvien;
+            inputModel.NhanVien = new NhanVien();
             inputModel.NhaCungCap = nhaCungCap;
             inputModel.NgayNhap = DateTime.Now;
             var data = db.PhieuNhaps.Add(inputModel);
@@ -86,11 +85,11 @@ namespace ChuyenDeLoc.Controllers
             return Json(new { result = true });
         }
         [HttpPost]
-        public ActionResult Delete(int Ma)
+        public ActionResult Delete(int id)
         {
 
 
-            var entity = db.PhieuNhaps.Find(Ma);
+            var entity = db.PhieuNhaps.Find(id);
 
             if (entity == null)
             {

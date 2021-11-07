@@ -225,3 +225,4 @@ function setDatetimeForCreateContent() {//Set all element that have class = date
         $(this).val('');
     });
 }
+

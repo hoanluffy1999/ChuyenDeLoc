@@ -36,11 +36,18 @@ namespace ChuyenDeLoc.Controllers
         [HttpPost]
         public ActionResult Create(SanPham inputModel)
         {
-            inputModel.SoLuong = 0;
-            inputModel.PhanLoai = db.PhanLoais.Where(x => x.Ma == inputModel.MaPhanLoai).FirstOrDefault();
-            db.SanPhams.Add(inputModel);
-            db.SaveChanges();
-            return Json(new { result = true }); ;
+            try
+            {
+                inputModel.SoLuong = 0;
+                inputModel.PhanLoai = db.PhanLoais.Where(x => x.Ma == inputModel.MaPhanLoai).FirstOrDefault();
+                db.SanPhams.Add(inputModel);
+                db.SaveChanges();
+                return Json(new { result = true });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { result = false });
+            }
         }
         [HttpGet]
         public ActionResult Update(int id)
@@ -61,23 +68,28 @@ namespace ChuyenDeLoc.Controllers
             }
             db.Entry(entity).CurrentValues.SetValues(inputModel);
             db.SaveChanges();
-            return Json(new { result = true,message="Thêm mới thành công"});
+            return Json(new { result = true, message = "Thêm mới thành công" });
         }
         [HttpPost]
         public ActionResult Delete(int Ma)
         {
-
-
-            var entity = db.SanPhams.Find(Ma);
-
-            if (entity == null)
+            try
             {
-                return Json(new { result = false });
-            }
-            db.SanPhams.Remove(entity);
+                var entity = db.SanPhams.Find(Ma);
 
-            db.SaveChanges();
-            return Json(new { result = true }); ;
+                if (entity == null)
+                {
+                    return Json(new { result = false });
+                }
+                db.SanPhams.Remove(entity);
+
+                db.SaveChanges();
+                return Json(new { result = true });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { result = false, message = "Lỗi" });
+            }
         }
     }
 }

@@ -61,20 +61,25 @@ namespace ChuyenDeLoc.Controllers
             return Json(new { result = true });
         }
         [HttpPost]
-        public ActionResult Delete(int Ma)
+        public ActionResult Delete(int id)
         {
-
-
-            var entity = db.PhanLoais.Find(Ma);
-
-            if (entity == null)
+            try
             {
-                return Json(new { result = false });
+                var entity = db.PhanLoais.Find(id);
+
+                if (entity == null)
+                {
+                    return Json(new { result = false });
+                }
+                db.PhanLoais.Remove(entity);
+
+                db.SaveChanges();
+                return Json(new { result = true });
             }
-            db.PhanLoais.Remove(entity);
-           
-            db.SaveChanges();
-            return Json(new { result = true }); ;
+            catch (Exception ex)
+            {
+                return Json(new { result = false, message = "Lỗi" });
+            }
         }
     }
 }

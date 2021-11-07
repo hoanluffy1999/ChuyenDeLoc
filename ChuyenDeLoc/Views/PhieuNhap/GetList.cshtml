@@ -27,7 +27,7 @@
 
             <td style="text-align:center;width:10%;">
 
-                <a href="javascript:;" class="btn-delete" onclick="deleteItem(@item.Ma)"><i class="fas fa-trash-alt"></i></a>
+                <a href="javascript:;" class="btn-delete" onclick="deleteConfirm(@item.Ma)"><i class="fas fa-trash-alt"></i></a>
                 <a class="btn-update" href="javascript:;" onclick="openUpdate(@item.Ma)"><i class="fas fa-edit"></i></a>
 
 
@@ -48,6 +48,9 @@
     //});
     $(document).ready(function () {
         //setStatus();
+        $('#btnDelete').on('click', function () {
+            deleteData();
+        });
         setDataTable();
 
     });
@@ -121,19 +124,25 @@
         //        showContentModal(response, "Cập nhật")
         //    }
         //});
-        window.location.href = "/phieunhap?ma=" + id;
+        window.location.href = urlDomain + "/chitiet?ma=" + id;
     }
-    function deleteItem(id) {
+
+    var idDelete;
+    var deleteConfirm = function (id) {
+        idDelete = id;
+        showDeleteModal();
+    }
+    function deleteData() {
 
             $.ajax({
             url: urlDomain + '/delete',
             method: "POST",
             data: {
-                Ma: id,
+                id: idDelete,
             }
             , success: function (response) {
                 if (response.result) {
-                    $("#row_" + id).slideUp();
+                    $("#row_" + idDelete).slideUp();
                     showAlert("Xóa dữ liệu thành công", 2)
 
                 } else {
@@ -142,7 +151,7 @@
                 }
             }
         })
-
+        hideDeleteModal();
     }
    
 </script>

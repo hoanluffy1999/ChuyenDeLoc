@@ -73,18 +73,23 @@ namespace ChuyenDeLoc.Controllers
         [HttpPost]
         public ActionResult Delete(int Ma)
         {
-
-
-            var entity = db.NhaCungCaps.Find(Ma);
-
-            if (entity == null)
+            try
             {
-                return Json(new { result = false });
-            }
-            db.NhaCungCaps.Remove(entity);
+                var entity = db.NhaCungCaps.Find(Ma);
 
-            db.SaveChanges();
-            return Json(new { result = true }); ;
+                if (entity == null)
+                {
+                    return Json(new { result = false });
+                }
+
+                db.NhaCungCaps.Remove(entity);
+                db.SaveChanges();
+                return Json(new { result = true });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { result = false, message = "Lỗi" });
+            }
         }
     }
 }

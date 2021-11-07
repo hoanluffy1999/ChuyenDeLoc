@@ -25,11 +25,20 @@ namespace ChuyenDeLoc.Controllers
         public ActionResult Login(LoginModel mode)
         {
             var data = _dbcontext.NhanViens.Where(x => x.TenDangNhap.Equals(mode.UserName) && x.MatKhau.Equals(mode.PassWord)).FirstOrDefault();
+
             if (data != null)
             {
-                Session["Account"] = new NhanVien();
-
-                Session["Account"] = data;
+                NhanVien nhanVien = new NhanVien()
+                {
+                    Ma=data.Ma,
+                    HoTen=data.HoTen,
+                    TenDangNhap=data.TenDangNhap,
+                    CMND=data.CMND,
+                    MatKhau=data.MatKhau,
+                    NgaySinh=data.NgaySinh,
+                    SDT=data.SDT
+                };
+                Session["Account"] = nhanVien;
                 return Json(new { result = true });
             }
             return Json(new { result = false });

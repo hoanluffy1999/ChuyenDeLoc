@@ -26,6 +26,7 @@ namespace ChuyenDeLoc.Models
         public string MatKhau { get; set; }
         public System.DateTime NgaySinh { get; set; }
         public string SDT { get; set; }
+        public string CMND { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PhieuNhap> PhieuNhaps { get; set; }

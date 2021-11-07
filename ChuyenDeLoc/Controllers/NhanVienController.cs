@@ -26,7 +26,7 @@ namespace ChuyenDeLoc.Controllers
         [HttpGet]
         public ActionResult GetList(string name)
         {
-            var data = db.NhanViens.Where(x =>  (x.TenDangNhap.ToLower().Contains(name.ToLower()) || string.IsNullOrEmpty(name))).ToList();
+            var data = db.NhanViens.Where(x => (x.TenDangNhap.ToLower().Contains(name.ToLower()) || string.IsNullOrEmpty(name))).ToList();
             return PartialView(data);
         }
         [HttpGet]
@@ -37,7 +37,7 @@ namespace ChuyenDeLoc.Controllers
         [HttpPost]
         public ActionResult Create(NhanVien inputModel)
         {
-           
+
             db.NhanViens.Add(inputModel);
             db.SaveChanges();
             return Json(new { result = true }); ;
@@ -54,11 +54,11 @@ namespace ChuyenDeLoc.Controllers
 
 
             var entity = db.NhanViens.Where(x => x.Ma == inputModel.Ma).FirstOrDefault();
-            if (entity == null) 
+            if (entity == null)
             {
-                return Json(new { result = false,message = "Thêm thất bại" });
+                return Json(new { result = false, message = "Thêm thất bại" });
             }
-           
+
             db.Entry(entity).CurrentValues.SetValues(inputModel);
             db.SaveChanges();
             return Json(new { result = true });
@@ -66,18 +66,24 @@ namespace ChuyenDeLoc.Controllers
         [HttpPost]
         public ActionResult Delete(int id)
         {
-
-
-            var entity = db.NhanViens.Find(id);
-
-            if (entity == null)
+            try
             {
-                return Json(new { result = false });
+                var entity = db.NhanViens.Find(id);
+
+                if (entity == null)
+                {
+                    return Json(new { result = false });
+                }
+
+                db.NhanViens.Remove(entity);
+                db.SaveChanges();
+                return Json(new { result = true }); ;
             }
-           
-            db.Entry(entity).CurrentValues.SetValues(entity);
-            db.SaveChanges();
-            return Json(new { result = true }); ;
+            catch (Exception ex)
+            {
+                return Json(new { result = false, message = "Lỗi" });
+            }
+
         }
     }
 }
