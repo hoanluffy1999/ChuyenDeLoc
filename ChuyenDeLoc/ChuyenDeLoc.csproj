@@ -45,6 +45,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -167,9 +170,11 @@
     <Compile Include="Controllers\NhaCungCapController.cs" />
     <Compile Include="Controllers\PhanLoaiController.cs" />
     <Compile Include="Controllers\PhieuNhapController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\BaoCaoNhapViewModel.cs" />
     <Compile Include="Models\ChiTiepPhieuNhap.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -215,9 +220,83 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Report\BaoCaoNhap.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BaoCaoNhap.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\script.sql" />
+    <Content Include="Plugins\select2\dist\css\select2.css" />
+    <Content Include="Plugins\select2\dist\css\select2.min.css" />
+    <Content Include="Plugins\select2\dist\js\i18n\af.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\ar.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\az.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\bg.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\bn.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\bs.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\ca.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\cs.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\da.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\de.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\dsb.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\el.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\en.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\eo.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\es.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\et.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\eu.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\fa.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\fi.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\fr.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\gl.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\he.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\hi.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\hr.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\hsb.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\hu.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\hy.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\id.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\is.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\it.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\ja.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\ka.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\km.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\ko.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\lt.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\lv.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\mk.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\ms.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\nb.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\ne.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\nl.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\pa.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\pl.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\ps.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\pt-BR.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\pt.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\ro.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\ru.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\sk.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\sl.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\sq.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\sr-Cyrl.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\sr.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\sv.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\te.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\th.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\tk.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\tr.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\uk.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\vi.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\zh-CN.js" />
+    <Content Include="Plugins\select2\dist\js\i18n\zh-TW.js" />
+    <Content Include="Plugins\select2\dist\js\select2.full.js" />
+    <Content Include="Plugins\select2\dist\js\select2.full.min.js" />
+    <Content Include="Plugins\select2\dist\js\select2.js" />
+    <Content Include="Plugins\select2\dist\js\select2.min.js" />
     <Content Include="Plugins\toastr\toastr.css" />
     <Content Include="Plugins\toastr\toastr.min.css" />
     <Content Include="Plugins\toastr\toastr.min.js" />
@@ -344,6 +423,7 @@
     <Content Include="Views\PhieuNhap\ListChiTiet.cshtml" />
     <Content Include="Views\PhieuNhap\UpdateChiTiet.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Report\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\File\" />
@@ -363,6 +443,13 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Report\BaoCaoNhap.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>BaoCaoNhap.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -19,7 +19,6 @@ namespace ChuyenDeLoc.Models
         {
             this.PhieuNhaps = new HashSet<PhieuNhap>();
         }
-    
         public int Ma { get; set; }
         public string HoTen { get; set; }
         public string TenDangNhap { get; set; }

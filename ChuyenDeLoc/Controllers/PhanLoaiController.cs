@@ -41,9 +41,9 @@ namespace ChuyenDeLoc.Controllers
             return Json(new { result = true }); ;
         }
         [HttpGet]
-        public ActionResult Update(int Ma)
+        public ActionResult Update(int id)
         {
-            var entity = db.PhanLoais.Where(x=>x.Ma ==Ma).FirstOrDefault();
+            var entity = db.PhanLoais.Where(x=>x.Ma == id).FirstOrDefault();
             return PartialView(entity);
         }
         [HttpPost]

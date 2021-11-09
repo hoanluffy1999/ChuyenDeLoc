@@ -70,7 +70,6 @@ namespace ChuyenDeLoc.Controllers
         public ActionResult Update(PhieuNhap inputModel)
         {
 
-
             var entity = db.PhieuNhaps.Where(x => x.Ma == inputModel.Ma).FirstOrDefault();
             if (entity == null)
             {

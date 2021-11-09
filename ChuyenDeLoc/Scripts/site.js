@@ -226,3 +226,6 @@ function setDatetimeForCreateContent() {//Set all element that have class = date
     });
 }
 
+function initSelect2() {
+    $('select').select2();
+}
