@@ -28,9 +28,7 @@
             <td style="text-align:center;width:10%;">
 
                 <a href="javascript:;" class="btn-delete" onclick="deleteConfirm(@item.Ma)"><i class="fas fa-trash-alt"></i></a>
-                <a class="btn-update" href="javascript:;" onclick="openUpdate(@item.Ma)"><i class="fas fa-edit"></i></a>
-
-
+                <a class="btn-update" href="javascript:;" onclick="openDetail(@item.Ma)"><i class="fas fa-info-circle"></i></a>
             </td>
         </tr>
         }
@@ -116,7 +114,7 @@
             })
         })
     }
-    function openUpdate(id) {
+    function openDetail(id) {
         //$.ajax({
         //    url: urlDomain + "/chitiet?ma=" + id,
         //    method: "Get",
@@ -126,7 +124,6 @@
         //});
         window.location.href = urlDomain + "/chitiet?ma=" + id;
     }
-
     var idDelete;
     var deleteConfirm = function (id) {
         idDelete = id;

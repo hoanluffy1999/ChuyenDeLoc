@@ -1,6 +1,7 @@
 ﻿using ChuyenDeLoc.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -90,6 +91,66 @@ namespace ChuyenDeLoc.Controllers
             {
                 return Json(new { result = false, message = "Lỗi" });
             }
+        }
+
+        [HttpGet]
+        public ActionResult CreateFast()
+        {
+            ViewData["PhanLoai"] = db.PhanLoais.Where(x => true).ToList();
+            return PartialView();
+        }
+        [HttpPost]
+        public ActionResult CreateFast(SanPham inputModel, string LoaiCay)
+        {
+            using (DbContextTransaction transaction = db.Database.BeginTransaction())
+            {
+                try
+                {
+                    int result = SetData(inputModel, LoaiCay);
+                    if (result == 0)
+                    {
+                        transaction.Rollback();
+                        return Json(new { result = false });
+                    }
+                    else
+                    {
+                        transaction.Commit();
+                        return Json(new { result = true });
+                    }
+                }
+                catch(Exception e)
+                {
+                    transaction.Rollback();
+                    return Json(new { result = false });
+                }
+            }
+        }
+
+        private int SetData(SanPham inputModel, string LoaiCay)
+        {
+            int result = 1;
+
+            if (!string.IsNullOrEmpty(LoaiCay))
+            {
+                PhanLoai p = new PhanLoai()
+                {
+                    Ten = LoaiCay,
+                    MoTa = string.Empty,
+                };
+                db.PhanLoais.Add(p);
+                result = db.SaveChanges();
+                if (result == 0) return result;
+                inputModel.MaPhanLoai = p.Ma;
+                db.SanPhams.Add(inputModel);
+                return db.SaveChanges();
+            }
+            else
+            {
+                db.SanPhams.Add(inputModel);
+                result = db.SaveChanges();
+
+            }
+            return result;
         }
     }
 }

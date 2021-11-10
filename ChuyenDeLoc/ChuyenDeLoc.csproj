@@ -424,6 +424,7 @@
     <Content Include="Views\PhieuNhap\UpdateChiTiet.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Report\Index.cshtml" />
+    <Content Include="Views\Cay\CreateFast.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\File\" />

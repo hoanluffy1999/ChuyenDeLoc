@@ -15,24 +15,10 @@
             </div>
         </div>
     </div>
-    <div class="form-group">
-        <div class="row">
-            <label class="col-sm-3">Nhân viên thực hiện</label>
-            <div class="col-sm-8">
-                <select id="cbNhanVien" name="DepartmentId">
-                    @foreach (var item in (List<ChuyenDeLoc.Models.NhanVien>)ViewData["NhanVien"])
-                    {
-                        <option value="@item.Ma">
-                            @item.HoTen
-                        </option>
-                    }
-                </select>
-            </div>
-        </div>
-    </div>
 </div>
 <script>
     var frmUpdate = $('#frmUpdate');
+    initSelect2();
     $(document).ready(function () {
         addRequired(frmUpdate);
         frmUpdate.find('lbStatus').on('click', function () {

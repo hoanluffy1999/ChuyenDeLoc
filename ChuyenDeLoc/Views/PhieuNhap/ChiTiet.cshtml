@@ -18,6 +18,7 @@
                 <h4>Nhà cung cấp: @Model.NhaCungCap.Ten</h4>
             </div>
             <div class="col-4">
+                <button id="create-fast" class="btn btn-success">Thêm Cây Và Loại</button>
                 <button id="btnCreate" style="float:right" class="btn btn-success">Nhập thêm cây</button>
             </div>
         </div>
@@ -39,6 +40,9 @@
         searching();
         frmFilter.find('#btnCreate').on('click', function () {
             openCreate();
+        });
+        frmFilter.find('#create-fast').on('click', function () {
+            openCreateFast();
         });
     });
     function searching() {
@@ -74,6 +78,16 @@
             method: "Get",
             success: function (response) {
                 showContentModal(response, "Tạo mới nhà cung cấp")
+            }
+        });
+    }
+
+    function openCreateFast() {
+        $.ajax({
+            url: "/Cay/CreateFast",
+            method: "Get",
+            success: function (response) {
+                showContentModal(response, "Tạo Nhanh")
             }
         });
     }

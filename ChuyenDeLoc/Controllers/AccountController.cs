@@ -18,6 +18,7 @@ namespace ChuyenDeLoc.Controllers
         [HttpGet]
         public ActionResult Login()
         {
+            Session.Remove("Account");
             return View();
         }
 

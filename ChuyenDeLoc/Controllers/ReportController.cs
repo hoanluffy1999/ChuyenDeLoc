@@ -25,23 +25,33 @@ namespace ChuyenDeLoc.Controllers
             return View(data);
         }
 
-        public ActionResult Download_PDF()
+        [HttpPost]
+        public ActionResult Download_PDF(int MaNCC, DateTime From, DateTime To)
         {
-            var list = new List<BaoCaoNhapViewModel>();
-            list.Add(new BaoCaoNhapViewModel() {
-                NgayNhap=DateTime.Now,
-                SoLuong=1,
+            var data = new List<BaoCaoNhapViewModel>();
+            data.Add(new BaoCaoNhapViewModel() {
                 GiaNhap=500
-            }); 
-            list.Add(new BaoCaoNhapViewModel()
-            {
-                NgayNhap = DateTime.Now,
-                SoLuong = 12,
-                GiaNhap = 500
             });
+
+            var query = from nv in db.NhanViens
+                        join pn in db.PhieuNhaps on nv.Ma equals pn.MaNV
+                        join ncc in db.NhaCungCaps on pn.MaNCC equals ncc.Ma
+                        join ctpn in db.ChiTiepPhieuNhaps on pn.Ma equals ctpn.MaPhieuNhap
+                        join sp in db.SanPhams on ctpn.MaSP equals sp.Ma
+                        select new BaoCaoNhapViewModel()
+                        {
+                            MaNCC=ncc.Ma,
+                            NCC = ncc.Ten,
+                            NhanVien = nv.HoTen,
+                            GiaNhap = ctpn.GiaNhap ?? 0,
+                            NgayNhap = pn.NgayNhap??default,
+                            SoLuong = ctpn.SoLuong ?? 0,
+                            TenSanPham = sp.Ten
+                        };
+            data = query.Where(x => x.MaNCC == MaNCC && x.NgayNhap > From && x.NgayNhap < To).ToList();
             ReportDocument rd = new ReportDocument();
             rd.Load(Path.Combine(Server.MapPath("~/Report"), "BaoCaoNhap.rpt"));
-            rd.SetDataSource(list);
+            rd.SetDataSource(data);
 
             Response.Buffer = false;
             Response.ClearContent();

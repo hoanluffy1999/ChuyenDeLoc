@@ -31,7 +31,7 @@
             <td style="width:10%;">@thanhTien VNĐ</td>
 
             <td style="text-align:center;width:10%;">
-                <a href="javascript:;" class="btn-delete" onclick="deleteItem(@item.Ma)"><i class="fas fa-trash-alt"></i></a>
+                <a href="javascript:;" class="btn-delete" onclick="deleteConfirm(@item.Ma)"><i class="fas fa-trash-alt"></i></a>
                 <a class="btn-update" href="javascript:;" onclick="openUpdate(@item.Ma)"><i class="fas fa-edit"></i></a>
 
 
@@ -53,6 +53,9 @@
     //});
     $(document).ready(function () {
         //setStatus();
+        $('#btnDelete').on('click', function () {
+            deleteData();
+        });
         setDataTable();
 
     });
@@ -142,17 +145,23 @@
             })
         })
     }
-    function deleteItem(id) {
+
+    var idDelete;
+    var deleteConfirm = function (id) {
+        idDelete = id;
+        showDeleteModal();
+    }
+    function deleteData(id) {
 
             $.ajax({
             url: urlDomain + '/deleteChiTiet',
             method: "POST",
             data: {
-                Ma: id,
+                Ma: idDelete,
             }
             , success: function (response) {
                 if (response.result) {
-                    $("#row_" + id).slideUp();
+                    $("#row_" + idDelete).slideUp();
                     showAlert("Xóa dữ liệu thành công", 2)
 
                 } else {
@@ -160,8 +169,8 @@
 
                 }
             }
-        })
-
+            })
+        hideDeleteModal();
     }
    
 </script>
