@@ -39,7 +39,7 @@ namespace ChuyenDeLoc.Controllers
         {
             var nhanvien = (NhanVien)Session["Account"];
             var nhaCungCap = db.NhaCungCaps.Where(x => x.Ma == inputModel.MaNCC).FirstOrDefault();
-            inputModel.NhanVien = new NhanVien();
+            inputModel.NhanVien = nhanvien;
             inputModel.NhaCungCap = nhaCungCap;
             inputModel.NgayNhap = DateTime.Now;
             var data = db.PhieuNhaps.Add(inputModel);
@@ -57,7 +57,7 @@ namespace ChuyenDeLoc.Controllers
         {
             ViewData["NhanVien"] = db.NhanViens.Where(x => true).ToList();
             ViewData["NhaCungCap"] = db.NhaCungCaps.Where(x => true).ToList();
-            var data = db.PhieuNhaps.Where(x=>x.Ma == Ma).FirstOrDefault();
+            var data = db.PhieuNhaps.Where(x => x.Ma == Ma).FirstOrDefault();
             PhieuNhapViewModel viewModel = new PhieuNhapViewModel()
             {
                 Ma = data.Ma,
@@ -86,18 +86,27 @@ namespace ChuyenDeLoc.Controllers
         [HttpPost]
         public ActionResult Delete(int id)
         {
+            try
+            {
+                var entity = db.PhieuNhaps.Find(id);
+                if (entity == null)
+                {
+                    return Json(new { result = false });
+                }
+                var listchitiet = db.ChiTiepPhieuNhaps.Where(x => x.MaPhieuNhap == id);
+                foreach (var item in listchitiet)
+                {
+                    db.ChiTiepPhieuNhaps.Remove(item);
+                }
+                db.PhieuNhaps.Remove(entity);
 
-
-            var entity = db.PhieuNhaps.Find(id);
-
-            if (entity == null)
+                db.SaveChanges();
+                return Json(new { result = true });
+            }
+            catch (Exception e)
             {
                 return Json(new { result = false });
             }
-            db.PhieuNhaps.Remove(entity);
-
-            db.SaveChanges();
-            return Json(new { result = true }); ;
         }
         /// <summary>
         /// 
@@ -134,7 +143,7 @@ namespace ChuyenDeLoc.Controllers
         {
             ViewData["SanPham"] = db.SanPhams.Where(x => true).ToList();
             var data = db.PhieuNhaps.Where(x => x.Ma == Ma).FirstOrDefault();
-            
+
             return PartialView(data);
         }
         [HttpPost]
@@ -154,7 +163,7 @@ namespace ChuyenDeLoc.Controllers
         [HttpGet]
         public ActionResult GetListChiTiet(int maPhieu)
         {
-            var data = db.ChiTiepPhieuNhaps.Where(x =>x.MaPhieuNhap == maPhieu).ToList();
+            var data = db.ChiTiepPhieuNhaps.Where(x => x.MaPhieuNhap == maPhieu).ToList();
             return PartialView("ListChiTiet", data);
         }
         [HttpPost]

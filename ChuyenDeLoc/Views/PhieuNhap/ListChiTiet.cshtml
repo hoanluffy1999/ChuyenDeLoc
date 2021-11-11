@@ -17,26 +17,26 @@
         //@foreach (var item in Model)
         {
             var item = Model[i];
-        <tr id="row_@item.Ma">
-            <td style=" text-align:center;width: 5%;">
-                @(i + 1)
-            </td>
-            @{long thanhTien = item.SoLuong.Value * item.GiaNhap.Value;
-                tongtien += thanhTien;
+            <tr id="row_@item.Ma">
+                <td style=" text-align:center;width: 5%;">
+                    @(i + 1)
+                </td>
+                @{long thanhTien = item.SoLuong.Value * item.GiaNhap.Value;
+                    tongtien += thanhTien;
                 }
-            <td style="width:10%;">@item.MaSP</td>
-            <td style="width:10%;">@item.SanPham.Ten</td>
-            <td style="width:10%;">@item.SoLuong</td>
-            <td style="width:10%;">@item.GiaNhap</td>
-            <td style="width:10%;">@thanhTien VNĐ</td>
+                <td style="width:10%;">@item.MaSP</td>
+                <td style="width:10%;">@item.SanPham.Ten</td>
+                <td style="width:10%;">@item.SoLuong</td>
+                <td style="width:10%;">@item.GiaNhap</td>
+                <td style="width:10%;">@thanhTien VNĐ</td>
 
-            <td style="text-align:center;width:10%;">
-                <a href="javascript:;" class="btn-delete" onclick="deleteConfirm(@item.Ma)"><i class="fas fa-trash-alt"></i></a>
-                <a class="btn-update" href="javascript:;" onclick="openUpdate(@item.Ma)"><i class="fas fa-edit"></i></a>
+                <td style="text-align:center;width:10%;">
+                    <a href="javascript:;" class="btn-delete" onclick="deleteConfirm(@item.Ma)"><i class="fas fa-trash-alt"></i></a>
+                    <a class="btn-update" href="javascript:;" onclick="openUpdate(@item.Ma)"><i class="fas fa-edit"></i></a>
 
 
-            </td>
-        </tr>
+                </td>
+            </tr>
         }
     </tbody>
 </table>
@@ -99,7 +99,7 @@
             "columnDefs": [
                 { "orderable": false, "targets": 2 },
                 { "orderable": false, "targets": 3 },
-          
+
             ],
             "language": {
                 "emptyTable": "Không tìm thấy dữ liệu"
@@ -152,8 +152,7 @@
         showDeleteModal();
     }
     function deleteData(id) {
-
-            $.ajax({
+        $.ajax({
             url: urlDomain + '/deleteChiTiet',
             method: "POST",
             data: {
@@ -163,14 +162,13 @@
                 if (response.result) {
                     $("#row_" + idDelete).slideUp();
                     showAlert("Xóa dữ liệu thành công", 2)
-
                 } else {
                     showAlert(response.message)
-
                 }
             }
-            })
+        })
         hideDeleteModal();
     }
-   
+
+
 </script>
