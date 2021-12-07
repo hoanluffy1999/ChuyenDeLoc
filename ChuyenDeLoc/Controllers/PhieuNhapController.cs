@@ -7,6 +7,9 @@ using System.Web.Mvc;
 
 namespace ChuyenDeLoc.Controllers
 {
+    /// <summary>
+    /// quản lý phiếu nhập
+    /// </summary>
     public class PhieuNhapController : Controller
     {
         private readonly QLCayCanhEntities db;
@@ -15,18 +18,29 @@ namespace ChuyenDeLoc.Controllers
             WebDbContext webDbContext = new WebDbContext();
             db = webDbContext.GetDBContext();
         }
+        /// <summary>
+        /// danh sách
+        /// </summary>
+        /// <returns></returns>
         [CustomAuthen]
         public ActionResult Index()
         {
             ViewBag.title = "Danh sách nhà phiếu nhập";
             return View();
         }
+        /// <summary>
+        /// lấy danh sách phiêu nhập
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult GetList(string name)
         {
             var data = db.PhieuNhaps.Where(x =>/* x.Ma.ToLower().Contains(name.ToLower()) ||*//* string.IsNullOrEmpty(name)*/ true).ToList();
             return PartialView(data);
         }
+
+        //thêm mới
         [HttpGet]
         public ActionResult Create()
         {
@@ -52,6 +66,11 @@ namespace ChuyenDeLoc.Controllers
             };
             return Json(new { data = viewModel, result = true }); ;
         }
+        /// <summary>
+        /// cập nhập phiếu nhập
+        /// </summary>
+        /// <param name="Ma"></param>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult Update(int Ma)
         {
@@ -83,6 +102,11 @@ namespace ChuyenDeLoc.Controllers
             db.SaveChanges();
             return Json(new { result = true });
         }
+        /// <summary>
+        /// xóa phiếu nhập
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Delete(int id)
         {
@@ -121,7 +145,7 @@ namespace ChuyenDeLoc.Controllers
         }
 
         /// <summary>
-        /// 
+        /// thêm mới chi tiết phiếu nhập
         /// </summary>
         /// <returns></returns>
         [HttpGet]
@@ -138,6 +162,11 @@ namespace ChuyenDeLoc.Controllers
             db.SaveChanges();
             return Json(new { data = data, result = true }); ;
         }
+        /// <summary>
+        /// cập nhâp chi tiết phiêu nhập
+        /// </summary>
+        /// <param name="Ma"></param>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult UpdateChiTiet(int Ma)
         {

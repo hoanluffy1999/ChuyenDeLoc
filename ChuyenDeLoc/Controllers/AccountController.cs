@@ -7,6 +7,10 @@ using System.Web.Mvc;
 
 namespace ChuyenDeLoc.Controllers
 {
+
+    /// <summary>
+    /// quản lý tài khoản
+    /// </summary>
     public class AccountController : Controller
     {
         private readonly QLCayCanhEntities _dbcontext;
@@ -15,16 +19,26 @@ namespace ChuyenDeLoc.Controllers
             WebDbContext webDbContext = new WebDbContext();
             _dbcontext = webDbContext.GetDBContext();
         }
+        /// <summary>
+        //
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult Login()
         {
             Session.Remove("Account");
             return View();
         }
-
+        /// <summary>
+        /// đăng nhập
+        /// </summary>
+        /// <param name="mode"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Login(LoginModel mode)
         {
+
+            //kiểm tra username vào pass
             var data = _dbcontext.NhanViens.Where(x => x.TenDangNhap.Equals(mode.UserName) && x.MatKhau.Equals(mode.PassWord)).FirstOrDefault();
 
             if (data != null)

@@ -8,6 +8,9 @@ using System.Web.Mvc;
 
 namespace ChuyenDeLoc.Controllers
 {
+    /// <summary>
+    /// quản lý cây 
+    /// </summary>
     public class CayController : Controller
     {
         private readonly QLCayCanhEntities db;
@@ -16,12 +19,21 @@ namespace ChuyenDeLoc.Controllers
             WebDbContext webDbContext = new WebDbContext();
             db = webDbContext.GetDBContext();
         }
+        /// <summary>
+        /// danh sách
+        /// </summary>
+        /// <returns></returns>
         [CustomAuthen]
         public ActionResult Index()
         {
             ViewBag.title = "Danh sách cây ";
             return View();
         }
+        /// <summary>
+        /// lấy danh sách
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult GetList(string name)
         {
@@ -34,6 +46,11 @@ namespace ChuyenDeLoc.Controllers
             ViewData["PhanLoai"] = db.PhanLoais.Where(x => true).ToList();
             return PartialView();
         }
+        /// <summary>
+        /// thêm mới  cây
+        /// </summary>
+        /// <param name="inputModel"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Create(SanPham inputModel)
         {
@@ -50,6 +67,11 @@ namespace ChuyenDeLoc.Controllers
                 return Json(new { result = false });
             }
         }
+        /// <summary>
+        /// cập nhập
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult Update(int id)
         {
