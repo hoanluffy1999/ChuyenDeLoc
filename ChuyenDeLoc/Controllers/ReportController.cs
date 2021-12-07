@@ -48,7 +48,7 @@ namespace ChuyenDeLoc.Controllers
                             SoLuong = ctpn.SoLuong ?? 0,
                             TenSanPham = sp.Ten
                         };
-            data = query.Where(x => x.MaNCC == MaNCC && x.NgayNhap > From && x.NgayNhap < To).ToList();
+            data = query.Where(x => x.MaNCC == MaNCC && x.NgayNhap >= From && x.NgayNhap <= To).ToList();
             ReportDocument rd = new ReportDocument();
             rd.Load(Path.Combine(Server.MapPath("~/Report"), "BaoCaoNhap.rpt"));
             rd.SetDataSource(data);
