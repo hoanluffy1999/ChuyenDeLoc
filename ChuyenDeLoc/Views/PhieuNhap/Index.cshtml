@@ -8,7 +8,7 @@
                 <div class="row" id="frmFilter">
                     <div class="col-4">
                         <div class="form-group">
-                            <input id="txtName" type="text" class="form-control" placeholder="Tìm kiếm ">
+                            <input id="txtName" type="number" class="form-control" placeholder="Tìm kiếm ">
                         </div>
                     </div>
                     @*<div class="col-2">
@@ -68,7 +68,7 @@
     function getData(name, status) {
       
         $.ajax({
-            url: urlDomain + "/getlist?name=" + $("#txtName").val(),
+            url: urlDomain + "/getlist?tongTien=" + $("#txtName").val(),
             method: "GET",
             data: {
                 title: frmFilter.find('#txtName').val(),

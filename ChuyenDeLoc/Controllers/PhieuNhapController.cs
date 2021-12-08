@@ -34,9 +34,21 @@ namespace ChuyenDeLoc.Controllers
         /// <param name="name"></param>
         /// <returns></returns>
         [HttpGet]
-        public ActionResult GetList(string name)
+        public ActionResult GetList(long tongTien = 0)
         {
-            var data = db.PhieuNhaps.Where(x =>/* x.Ma.ToLower().Contains(name.ToLower()) ||*//* string.IsNullOrEmpty(name)*/ true).ToList();
+            var res = new List<PhieuNhapViewModel>();
+            
+            var data1 = db.PhieuNhaps.Select(x =>  new PhieuNhapViewModel()
+            {
+                Ma = x.Ma,
+                MaNCC = x.MaNCC,
+                MaNV = x.MaNV,
+                NhaCungCap = x.NhaCungCap,
+                NhanVien = x.NhanVien,
+                tongTien = x.ChiTiepPhieuNhaps.Sum(z=>z.GiaNhap * z.SoLuong),
+                ChiTiepPhieuNhaps = x.ChiTiepPhieuNhaps
+            }).ToList();
+            var data = data1.Where(x=> tongTien == 0 ||x.tongTien == tongTien).ToList();
             return PartialView(data);
         }
 

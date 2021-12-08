@@ -1,4 +1,4 @@
-﻿@model List<ChuyenDeLoc.Models.PhieuNhap>
+﻿@model List<ChuyenDeLoc.Models.PhieuNhapViewModel>
 <table style="width:100%;height:100%;" id="tblDisplay" class=" table table-bordered table-hover table-striped">
     <thead>
         <tr>
@@ -22,12 +22,12 @@
             </td>
             <td style="width:20%;">@item.NhaCungCap.Ten</td>
             <td style="width:40%;">@item.NhanVien.TenDangNhap</td>
-            <td style="width:20%;">@item.ChiTiepPhieuNhaps.Sum(x=>x.GiaNhap) VNĐ</td>
+            <td style="width:20%;">@item.ChiTiepPhieuNhaps.Sum(x=>x.GiaNhap * x.SoLuong) VNĐ</td>
             
 
             <td style="text-align:center;width:10%;">
 
-                <a href="javascript:;" class="btn-delete" onclick="deleteConfirm(@item.Ma)"><i class="fas fa-trash-alt"></i></a>
+                
                 <a class="btn-update" href="javascript:;" onclick="openDetail(@item.Ma)"><i class="fas fa-info-circle"></i></a>
             </td>
         </tr>
